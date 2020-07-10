@@ -21,16 +21,16 @@ import javax.swing.SwingConstants;
 
 public class Calculatrice extends JFrame implements ActionListener{
 	
-	JTextField txt;
-	Button b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, ANS, POINT;
-	Button1 PN ;
-	Button2 EG, MUL, PLUS, MOINS, DIV;
-	JButton AC, DEL, OFF;
-	JPanel p1, p2, p3, p4, panel;
-	JRadioButton j1, j2;
-	ButtonGroup g;
-	double xp = 1, xs = 0, resultat = 0;
-	boolean operation = false, mult = false, div = false, som = false, soust = false, init=true, virg=false;
+	private JTextField txt;
+	private Button b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, ANS, POINT;
+	private Button1 PN ;
+	private Button2 EG, MUL, PLUS, MOINS, DIV;
+	private JButton AC, DEL, OFF;
+	private JPanel p1, p2, p3, p4, panel;
+	private JRadioButton j1, j2;
+	private ButtonGroup g;
+	private double xp = 1, xs = 0, resultat = 0;
+	private boolean operation = false, mult = false, div = false, som = false, soust = false, init=true, virg=false;
 	
 	public Calculatrice() {
 		
