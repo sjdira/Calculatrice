@@ -1,6 +1,7 @@
 package calcul;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -12,7 +13,7 @@ public class Button2 extends JButton implements MouseListener{
 		super(str);
 		this.setBackground(Color.orange);
 		this.setForeground(Color.black);
-		
+		this.setPreferredSize(new Dimension(75,30));
 		this.addMouseListener(this);
 	}
 
@@ -42,6 +43,5 @@ public class Button2 extends JButton implements MouseListener{
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		this.setBackground(Color.orange);
-		
 	}
 }

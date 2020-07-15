@@ -3,12 +3,13 @@ package calcul;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -19,14 +20,15 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class Calculatrice extends JFrame implements ActionListener{
+@SuppressWarnings("serial")
+public class Calculatrice extends JFrame implements ActionListener, ItemListener{
 	
 	private JTextField txt;
 	private Button b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, ANS, POINT;
-	private Button1 PN ;
+	private Button1 PN, sin, cos, tan, fact, ln, exp, puiss, sqrt, pi, a, c, rand;
 	private Button2 EG, MUL, PLUS, MOINS, DIV;
 	private JButton AC, DEL, OFF;
-	private JPanel p1, p2, p3, p4, panel;
+	private JPanel p1, p2, p3, pStan, pSci;
 	private JRadioButton j1, j2;
 	private ButtonGroup g;
 	private double xp = 1, xs = 0, resultat = 0;
@@ -42,62 +44,32 @@ public class Calculatrice extends JFrame implements ActionListener{
 		this.setIconImage(i.getImage());
 		
 		p1 = new JPanel();
-		p1.setLayout(new GridLayout(1,0));
+		p1.setLayout(new BorderLayout());
 		p1.setBackground(Color.white);
 		
 		txt =new JTextField("0");
 		txt.setPreferredSize(new Dimension(286,60));
 		txt.setEditable(false);
-		txt.setBackground(Color.BLACK);
+		txt.setBackground(Color.black);
 		txt.setForeground(Color.white);
 		txt.setHorizontalAlignment(SwingConstants.RIGHT);
 		txt.setFont(new Font("DIALOG", Font.CENTER_BASELINE+Font.BOLD, 20));
 		
-		p1.add(txt);
 		
 		p2 = new JPanel();
-		p2.setLayout(new GridLayout(5,0));
-		
-		b0 = new Button("0"); b1 = new Button("1"); b2 = new Button("2");
-		b3 = new Button("3"); b4 = new Button("4"); b5 = new Button("5");
-		b6 = new Button("6"); b7 = new Button("7"); b8 = new Button("8");
-		b9 = new Button("9");
-		AC = new JButton("AC"); DEL = new JButton("DEL"); PN = new Button1("�");
-		MUL = new Button2("x"); PLUS = new Button2("+"); MOINS = new Button2("�");
-		DIV = new Button2("�"); POINT = new Button("."); EG = new Button2("=");
-		ANS = new Button("Ans");
-		EG.setPreferredSize(new Dimension(165,30));
-		
-		AC.setBackground(Color.red);
-		DEL.setBackground(Color.red);
-		AC.setForeground(Color.black);
-		DEL.setForeground(Color.black);
-		
-		p2.add(AC); p2.add(DEL); p2.add(PN); p2.add(DIV);
-		p2.add(b7); p2.add(b8); p2.add(b9); p2.add(MUL);
-		p2.add(b4); p2.add(b5); p2.add(b6); p2.add(MOINS);
-		p2.add(b1); p2.add(b2); p2.add(b3); p2.add(PLUS);
-		p2.add(b0); p2.add(POINT); p2.add(ANS); p2.add(EG);
-		
-		p3 = new JPanel();
-		p3.setLayout(new FlowLayout());
-		p3.setBackground(Color.white);
+		p2.setBackground(Color.white);
+		p2.setPreferredSize(new Dimension(300,110));
 		
 		j1 = new JRadioButton("Standard");
 		j1.setOpaque(false);
 		j1.setSelected(true);
+		
 		j2 = new JRadioButton("Scientifique");
 		j2.setOpaque(false);
+		
 		g = new ButtonGroup();
 		g.add(j1);
 		g.add(j2);
-		
-		p3.add(j1); p3.add(j2);
-		
-		p4 = new JPanel();
-		p4.setLayout(new FlowLayout());
-		p4.setBounds(500, 200, 50, 20);
-		p4.setBackground(Color.white);
 		
 		OFF= new JButton(new ImageIcon("Images/off.png"));
 		OFF.setHorizontalTextPosition(JButton.CENTER);
@@ -106,16 +78,56 @@ public class Calculatrice extends JFrame implements ActionListener{
 		OFF.setOpaque(false);
 		OFF.setContentAreaFilled(false);
 		OFF.setBorderPainted(false);
+		OFF.setFocusPainted(false);
 		
-		p4.add(OFF);
+		p2.add(j1); p2.add(j2); p2.add(OFF);
 		
-		panel = new JPanel(new BorderLayout());
+		p1.add(txt, BorderLayout.NORTH);
+		p1.add(p2, BorderLayout.SOUTH);
 		
-		panel.add(p1,BorderLayout.NORTH);
-		panel.add(p2,BorderLayout.SOUTH);
-		panel.add(p3,BorderLayout.CENTER);
-		panel.add(p4,BorderLayout.EAST);
+		pStan = new JPanel();
+		pStan.setLayout(new GridLayout(5,0));
 		
+		b0 = new Button("0"); b1 = new Button("1"); b2 = new Button("2");
+		b3 = new Button("3"); b4 = new Button("4"); b5 = new Button("5");
+		b6 = new Button("6"); b7 = new Button("7"); b8 = new Button("8");
+		b9 = new Button("9");
+		AC = new JButton("AC"); DEL = new JButton("DEL"); PN = new Button1("±");
+		MUL = new Button2("x"); PLUS = new Button2("+"); MOINS = new Button2("–");
+		DIV = new Button2("÷"); POINT = new Button("."); EG = new Button2("=");
+		ANS = new Button("Ans");
+		
+		AC.setBackground(Color.red);
+		DEL.setBackground(Color.red);
+		AC.setForeground(Color.black);
+		DEL.setForeground(Color.black);
+		
+		pStan.add(AC); pStan.add(DEL); pStan.add(PN); pStan.add(DIV);
+		pStan.add(b7); pStan.add(b8); pStan.add(b9); pStan.add(MUL);
+		pStan.add(b4); pStan.add(b5); pStan.add(b6); pStan.add(MOINS);
+		pStan.add(b1); pStan.add(b2); pStan.add(b3); pStan.add(PLUS);
+		pStan.add(b0); pStan.add(POINT); pStan.add(ANS); pStan.add(EG);
+		
+		pSci = new JPanel();
+		pSci.setLayout(new GridLayout(0,4));
+		pSci.setBackground(Color.white);
+		
+		sin = new Button1("sin") ; cos = new Button1("cos"); tan = new Button1("tan");
+		fact = new Button1("x!"); ln = new Button1("ln"); exp = new Button1("eˣ");
+		puiss = new Button1("yˣ"); sqrt = new Button1("√x"); pi = new Button1("π");
+		a = new Button1("nAr"); c = new Button1("nCr"); rand = new Button1("Rand"); 
+		
+		pSci.add(sin); pSci.add(cos); pSci.add(tan);
+		pSci.add(fact); pSci.add(ln); pSci.add(exp);
+		pSci.add(puiss); pSci.add(sqrt); pSci.add(pi);
+		pSci.add(a); pSci.add(c); pSci.add(rand);
+
+		getContentPane().setLayout(new BorderLayout());
+		getContentPane().setBackground(Color.white);
+		getContentPane().add(p1,BorderLayout.NORTH);
+		getContentPane().add(pStan,BorderLayout.SOUTH);
+		getContentPane().add(pSci, BorderLayout.CENTER);
+		pSci.setVisible(false);
 		
 		b0.addActionListener(this); b1.addActionListener(this); b2.addActionListener(this);
         b3.addActionListener(this); b4.addActionListener(this); b5.addActionListener(this);
@@ -124,8 +136,8 @@ public class Calculatrice extends JFrame implements ActionListener{
         PN.addActionListener(this); ANS.addActionListener(this); OFF.addActionListener(this);
         MUL.addActionListener(this); PLUS.addActionListener(this); MOINS.addActionListener(this);
         DIV.addActionListener(this); POINT.addActionListener(this); EG.addActionListener(this);
+        j1.addItemListener(this); j2.addItemListener(this);
 		
-		setContentPane(panel);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -316,6 +328,26 @@ public class Calculatrice extends JFrame implements ActionListener{
 		else if(src == OFF)
 			System.exit(0);
 	
+	}
+	
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		
+		if(e.getSource() == j1)
+		{
+			this.setSize(300, 400);
+			pStan.setVisible(true);
+			pSci.setVisible(false);
+		}
+		
+		if(e.getSource() == j2)
+		{
+			this.setSize(300,450);
+			pStan.setVisible(true);
+			pSci.setVisible(true);
+		}
+		
 	}
 	
 	public static void main(String[] args) {
