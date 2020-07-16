@@ -30,9 +30,10 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 	private JButton AC, DEL, OFF;
 	private JPanel p1, p2, p3, pStan, pSci;
 	private JRadioButton j1, j2;
+	private int res=0;
 	private ButtonGroup g;
-	private double xp = 1, xs = 0, resultat = 0;
-	private boolean operation = false, mult = false, div = false, som = false, soust = false, init=true, virg=false;
+	private double xp = 1, xs = 0, resultat = 0,aux=0;
+	private boolean operation = false, mult = false, div = false, som = false, soust = false, init=true, virg=false,YX=false;
 	
 	public Calculatrice() {
 		
@@ -136,6 +137,8 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
         PN.addActionListener(this); ANS.addActionListener(this); OFF.addActionListener(this);
         MUL.addActionListener(this); PLUS.addActionListener(this); MOINS.addActionListener(this);
         DIV.addActionListener(this); POINT.addActionListener(this); EG.addActionListener(this);
+        puiss.addActionListener(this);sin.addActionListener(this);cos.addActionListener(this);
+        tan.addActionListener(this);fact.addActionListener(this);
         j1.addItemListener(this); j2.addItemListener(this);
 		
 		this.setVisible(true);
@@ -143,7 +146,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 	}
 
 	
-	void activate(boolean v)
+	void activateST(boolean v)
     {
 		b0.setEnabled(v); b1.setEnabled(v); b2.setEnabled(v); b3.setEnabled(v);
 	    b4.setEnabled(v); b5.setEnabled(v); b6.setEnabled(v); b7.setEnabled(v);
@@ -151,7 +154,24 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 	    DIV.setEnabled(v); PLUS.setEnabled(v); MOINS.setEnabled(v); EG.setEnabled(v);
 	    ANS.setEnabled(v); DEL.setEnabled(v); PN.setEnabled(v);
     }
-	
+	void activateSci(boolean v)
+    {
+		activateST(v);
+		sin.setEnabled(v); cos.setEnabled(v); tan.setEnabled(v); sqrt.setEnabled(v);
+	    fact.setEnabled(v); ln.setEnabled(v); exp.setEnabled(v); puiss.setEnabled(v);
+	    rand.setEnabled(v); c.setEnabled(v); a.setEnabled(v);pi.setEnabled(v);
+
+    }
+    boolean isValide(String s)
+    { 
+    	boolean res=true;
+    	for(int i=0;i<s.length();i++)
+    	{
+    		if(s.charAt(i)=='.' || s.charAt(i)=='-')
+    		res=false;
+    	}
+    	return res;
+    }
 	void Resultat()
     {
     	double x2=Double.parseDouble(txt.getText());
@@ -171,7 +191,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 			}
 			else
 			{
-				activate(false);
+				activateST(false);
 				txt.setForeground(Color.RED);
 				txt.setText("ERREUR");
 			}
@@ -187,11 +207,24 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 			xs = Double.parseDouble(txt.getText());
 			resultat = xs;
 		}
+		else if(YX)	{double res=Math.pow(aux,x2);txt.setText(""+res);}
     	
 		 init = false;   
 		 virg = false; 
+    } 
+    double fact(double x)
+    {
+    	double res=1;
+    	if(x>=0)
+    	{
+    	for(int i=2;i<=x;i++)
+		{
+			res=res*i;
+		}
+		return res;
+		}
+		else return 0;
     }
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -216,13 +249,11 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 		else if(src == AC){
 			txt.setText("0"); xp = 1; xs = 0; init = true; operation = false;
 			mult = false; div = false; som = false; soust = false; virg = false;
-			activate(true);
+			activateST(true);
 			txt.setForeground(Color.white);
 		}
 		else if(src == PN && !txt.getText().isEmpty() && Double.parseDouble(txt.getText()) != 0 )
 				txt.setText("" + Double.parseDouble(txt.getText())* (-1));
-		
-		
 		
 		else if(src == DEL) {
 			txt.setText(txt.getText().substring(0,txt.getText().length()-1));
@@ -243,12 +274,12 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 					xp=(Double.parseDouble(txt.getText()));
 				}
 				operation = true;
-				mult = true; div = false; som = false; soust = false;
+				mult = true; div = false; som = false; soust = false;YX=false;
 			}catch(NumberFormatException execp)
 			{
 				txt.setForeground(Color.RED);
 				txt.setText("ERREUR");
-				activate(false);
+				activateST(false);
 			}
 		}
 		else if(src == DIV)
@@ -271,7 +302,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 			{
 				txt.setForeground(Color.RED);
 				txt.setText("ERREUR");
-				activate(false);}
+				activateST(false);}
 		}
 		else if(src == PLUS)
 		{
@@ -288,12 +319,12 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 					Resultat();
 					xs = (Double.parseDouble(txt.getText()));
 				}
-				operation = true; mult = false; div = false; som = true; soust = false;
+				operation = true; mult = false; div = false; som = true; soust = false;YX=false;
 			}catch(NumberFormatException execp)
 			{
 				txt.setForeground(Color.RED);
 				txt.setText("ERREUR");
-				activate(false);}
+				activateST(false);}
 		}
 		else if(src == MOINS)
 		{
@@ -315,7 +346,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 			{
 				txt.setForeground(Color.RED);
 				txt.setText("ERREUR");
-				activate(false);
+				activateST(false);
 			}
 		}
 		else if(e.getSource() == EG)
@@ -323,11 +354,47 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 			Resultat();
 			init = true; virg = false;
 		}
+		else if(src==puiss)
+		{
+			aux=Double.parseDouble(txt.getText());
+			YX=true;init=false;boolean nAr = false;boolean nCr = false;
+			operation=true;mult=false;div=false;som=false;soust=false;
+		}
+		else if(src==sin)
+		{
+			double  x=Math.toRadians(Double.parseDouble(txt.getText()));
+		    double res=Math.sin(x);
+			txt.setText(""+res);	
+		}
+		else if(src==cos)
+		{
+			double  x=Math.toRadians(Double.parseDouble(txt.getText()));
+		    double res=Math.cos(x);
+			txt.setText(""+res);	
+		}
+		else if(src==tan)
+		{
+			double  x=Math.toRadians(Double.parseDouble(txt.getText()));
+		    double res=Math.tan(x);
+			txt.setText(""+res);	
+		}
+		else if(src==fact)
+		{
+			
+		
+			if(isValide(txt.getText()))
+			{double res=fact(Double.parseDouble(txt.getText()));
+			txt.setText(""+res);}
+			else
+			{
+				txt.setBackground(Color.LIGHT_GRAY);txt.setForeground(Color.RED);
+				txt.setText(" ERROR!!  RULE :  \"  N  DOIT  ETRE  UN ENTIER  >  A  ZERO \" ");
+			    activateSci(false);}
+		}
 		else if(src == ANS)
 			txt.setText("" + resultat);
 		else if(src == OFF)
 			System.exit(0);
-	
 	}
 	
 	@Override
