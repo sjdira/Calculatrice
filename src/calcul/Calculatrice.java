@@ -33,7 +33,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 	private int res=0;
 	private ButtonGroup g;
 	private double xp = 1, xs = 0, resultat = 0,aux=0;
-	private boolean operation = false, mult = false, div = false, som = false, soust = false, init=true, virg=false,YX=false;
+	private boolean operation = false, mult = false, div = false, som = false, soust = false, init=true, virg=false,YX=false,nAr=false,nCr=false;
 	
 	public Calculatrice() {
 		
@@ -138,7 +138,9 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
         MUL.addActionListener(this); PLUS.addActionListener(this); MOINS.addActionListener(this);
         DIV.addActionListener(this); POINT.addActionListener(this); EG.addActionListener(this);
         puiss.addActionListener(this);sin.addActionListener(this);cos.addActionListener(this);
-        tan.addActionListener(this);fact.addActionListener(this);
+        tan.addActionListener(this);fact.addActionListener(this);ln.addActionListener(this);
+        exp.addActionListener(this);sqrt.addActionListener(this);a.addActionListener(this);
+        c.addActionListener(this);pi.addActionListener(this);rand.addActionListener(this);
         j1.addItemListener(this); j2.addItemListener(this);
 		
 		this.setVisible(true);
@@ -208,6 +210,32 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 			resultat = xs;
 		}
 		else if(YX)	{double res=Math.pow(aux,x2);txt.setText(""+res);}
+		else if(nAr)
+		{
+			if((aux>=x2)&&(aux>=0)&&(x2>=0))
+			{
+			double res=(fact(aux)/fact((aux-x2)));
+			txt.setText(""+res);
+			}
+			else
+			{
+				txt.setForeground(Color.RED);
+				txt.setText("  ERROR!!  RULE  :  \"  n  doit  etre >= r  et  n >= 0  et  r >= 0  \" ");
+			    activateSci(false);}
+		}
+		else if(nCr)
+		{
+			if((aux>=x2)&&(aux>=0)&&(x2>=0))
+			{
+				double res=(fact(aux)/(fact(x2)*fact((aux-x2))));
+				txt.setText(""+res);
+			}
+			else
+			{
+				;txt.setForeground(Color.RED);
+				txt.setText(" ERROR!!   RULE  :  \"  n  doit  etre  >= r  et  n  >= 0  et  r  >= 0  \" ");
+			    activateSci(false);}
+		}
     	
 		 init = false;   
 		 virg = false; 
@@ -249,7 +277,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 		else if(src == AC){
 			txt.setText("0"); xp = 1; xs = 0; init = true; operation = false;
 			mult = false; div = false; som = false; soust = false; virg = false;
-			activateST(true);
+			activateST(true);activateSci(true);
 			txt.setForeground(Color.white);
 		}
 		else if(src == PN && !txt.getText().isEmpty() && Double.parseDouble(txt.getText()) != 0 )
@@ -275,6 +303,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 				}
 				operation = true;
 				mult = true; div = false; som = false; soust = false;YX=false;
+				nAr=false;nCr=false;
 			}catch(NumberFormatException execp)
 			{
 				txt.setForeground(Color.RED);
@@ -298,6 +327,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 					xp = (Double.parseDouble(txt.getText()));
 				}
 				operation = true; mult = false; div = true; som = false; soust = false;
+				nAr=false;nCr=false;
 			}catch(NumberFormatException execp)
 			{
 				txt.setForeground(Color.RED);
@@ -320,6 +350,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 					xs = (Double.parseDouble(txt.getText()));
 				}
 				operation = true; mult = false; div = false; som = true; soust = false;YX=false;
+				nAr=false;nCr=false;
 			}catch(NumberFormatException execp)
 			{
 				txt.setForeground(Color.RED);
@@ -342,6 +373,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 					xs=(Double.parseDouble(txt.getText()));
 				}
 				operation = true; mult = false; div = false; som = false; soust = true;
+				nAr=false;nCr=false;
 			}catch(NumberFormatException execp)
 			{
 				txt.setForeground(Color.RED);
@@ -357,7 +389,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 		else if(src==puiss)
 		{
 			aux=Double.parseDouble(txt.getText());
-			YX=true;init=false;boolean nAr = false;boolean nCr = false;
+			YX=true;init=false;nAr=false;nCr=false;
 			operation=true;mult=false;div=false;som=false;soust=false;
 		}
 		else if(src==sin)
@@ -387,9 +419,63 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 			txt.setText(""+res);}
 			else
 			{
-				txt.setBackground(Color.LIGHT_GRAY);txt.setForeground(Color.RED);
-				txt.setText(" ERROR!!  RULE :  \"  N  DOIT  ETRE  UN ENTIER  >  A  ZERO \" ");
+				txt.setForeground(Color.RED);
+				txt.setText(" ERROR!!  RULE :  \"  N DOIT ETRE UN ENTIER > A ZERO \" ");
 			    activateSci(false);}
+		}
+		else if(src==ln)
+		{
+			double  x=Double.parseDouble(txt.getText());
+			if(x>0)
+			{
+			double  res=Math.log(x);
+			txt.setText(""+res);
+			}
+			else if(x<=0)
+			{
+				txt.setForeground(Color.RED);
+				txt.setText(" ERROR!!  RULE : \"  X  DOIT  ETRE  >  A  ZERO  \" ");
+			    activateSci(false);}
+		}
+		else if(src==exp)
+		{
+			double  x=Double.parseDouble(txt.getText());
+			double  res=Math.exp(x);
+			txt.setText(""+res);
+		}
+		else if(src==sqrt)
+		{
+			double  x=Double.parseDouble(txt.getText());
+			if(x>=0)
+			{double res=Math.sqrt(x);
+			txt.setText(""+res);}
+			else {
+				txt.setForeground(Color.RED);
+				txt.setText(" ERROR!!  RULE  :  \"  X  DOIT  ETRE  >  A  ZERO  \" ");
+			    activateSci(false);}
+		}
+		else if(src==rand)
+		{
+			double  x=Double.parseDouble(txt.getText());
+			double res=Math.random();
+			txt.setText(""+res);
+		}
+		else if(src==a)
+		{
+			aux=Double.parseDouble(txt.getText());
+			nAr=true;YX=false;init=false;
+			operation=true;mult=false;div=false;som=false;soust=false;			
+		}
+			else if(src==c)
+		{
+			aux=Double.parseDouble(txt.getText());
+			nCr=true;YX=false;init=false;
+			operation=true;mult=false;div=false;som=false;soust=false;			
+		}
+		else if(src==pi)
+		{
+			txt.setText(""+Math.PI);
+			virg=true;
 		}
 		else if(src == ANS)
 			txt.setText("" + resultat);
