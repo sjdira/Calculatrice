@@ -19,7 +19,7 @@ public class Geometrique extends JFrame {
 		this.setIconImage(i.getImage());
 		setSize(500, 500);
 		setVisible(true);
-		
+		this.setResizable(false);
 		this.deg = deg;
 		this.degree = degree;
 	}

@@ -61,8 +61,9 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 		
 		p2 = new JPanel();
 		p2.setBackground(Color.white);
-		p2.setPreferredSize(new Dimension(300,110));
-		
+		p2.setPreferredSize(new Dimension(300,80));;
+		p2.setLayout(new GridLayout());
+		GridLayout grid =(GridLayout)p2.getLayout();
 		j1 = new JRadioButton("Standard");
 		j1.setOpaque(false);
 		j1.setSelected(true);
@@ -84,13 +85,17 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 		OFF.setFocusPainted(false);
 		
 		shift = new Button1("SHIFT");
-		shift.setPreferredSize(new Dimension(70,30));
-		
-		p2.add(j1); p2.add(j2); p2.add(OFF); p2.add(shift);
+		shift.setPreferredSize(new Dimension(50,30));
+		shift.isMaximumSizeSet();
+		p2.add(j1); p2.add(j2); p2.add(OFF);
+		JPanel p3 = new JPanel();
+		p3.setLayout(new GridLayout(0,4,0,20));
+		p3.setBackground(Color.white);
+		p3.add(shift,BorderLayout.NORTH);
 		
 		p1.add(txt, BorderLayout.NORTH);
 		p1.add(p2, BorderLayout.CENTER);
-		
+		p1.add(p3,BorderLayout.AFTER_LAST_LINE);
 		pStan = new JPanel();
 		pStan.setLayout(new GridLayout(5,0));
 		
@@ -116,8 +121,10 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 		
 		pSci = new JPanel();
 		pSci.setLayout(new GridLayout(0,4));
+		GridLayout grid1 =(GridLayout)pSci.getLayout();
+		grid1.setVgap(0);
 		pSci.setBackground(Color.white);
-		
+		pSci.setLayout(new GridLayout(0,4));
 		sin = new Button1("sin") ; cos = new Button1("cos"); tan = new Button1("tan");
 		fact = new Button1("x!"); ln = new Button1("ln(x)"); exp = new Button1("eˣ");
 		puiss = new Button1("yˣ"); sqrt = new Button1("√x"); pi = new Button1("π");
