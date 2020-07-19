@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class Button extends JButton implements MouseListener{
 	
 	public Button(String str){

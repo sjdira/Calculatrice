@@ -424,11 +424,14 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 			YX = true; init = false; nAr = false; nCr = false;
 			operation = true; mult = false; div = false; som = false; soust = false;
 		}
-		else if(src==sin)
+		else if(src == sin)
 		{			
 			if(!Shift)
 			{
-				double  x = Math.toRadians(Double.parseDouble(txt.getText()));
+				double degree = Math.toDegrees(Double.parseDouble(txt.getText()));
+				new Geometrique((int) Math.ceil(degree), Math.round(degree * 100.0) / 100.0);
+				
+				double x = Math.toRadians(Double.parseDouble(txt.getText()));
 			    resultat = Math.sin(x);
 				txt.setText(""+resultat);	
 			}
@@ -436,13 +439,16 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 			{
 				double x = Double.parseDouble(txt.getText());
 				resultat = Math.asin(x);
-				txt.setText(""+Math.toDegrees(resultat));	
+				txt.setText(""+Math.toDegrees(resultat));
 			}
 		}
 		else if(src==cos)
 		{
 			if(!Shift)
 			{
+				double degree = Math.toDegrees(Double.parseDouble(txt.getText()));
+				new Geometrique((int) Math.ceil(degree), Math.round(degree * 100.0) / 100.0);
+				
 				double  x = Math.toRadians(Double.parseDouble(txt.getText()));
 			    resultat = Math.cos(x);
 				txt.setText(""+resultat);
@@ -458,6 +464,9 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 		{
 			if(!Shift)
 			{
+				double degree = Math.toDegrees(Double.parseDouble(txt.getText()));
+				new Geometrique((int) Math.ceil(degree), Math.round(degree * 100.0) / 100.0);
+				
 				double  x = Math.toRadians(Double.parseDouble(txt.getText()));
 				resultat = Math.tan(x);
 				txt.setText(""+resultat);
