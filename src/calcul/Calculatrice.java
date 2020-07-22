@@ -63,7 +63,6 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 		p2.setBackground(Color.white);
 		p2.setPreferredSize(new Dimension(300,80));;
 		p2.setLayout(new GridLayout());
-		GridLayout grid =(GridLayout)p2.getLayout();
 		j1 = new JRadioButton("Standard");
 		j1.setOpaque(false);
 		j1.setSelected(true);

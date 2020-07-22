@@ -26,7 +26,7 @@ public class Geometrique extends JFrame {
 	
 	public void paint(Graphics g) {
 		
-		g.setColor(Color.darkGray);
+		g.setColor(Color.black);
 		g.drawLine(0, 250, 500, 250);
 		g.drawLine(250, 0, 250, 500);
 		g.drawString("Sin(x)", 260, 50);
@@ -47,7 +47,7 @@ public class Geometrique extends JFrame {
 		g.drawString("π ", 50, 245);
 		g.drawString("3π/2 ", 220, 455);
 		
-		g.drawString(" π/3", 345, 80);
+		g.drawString(" π/3", 340, 80);
 		g.drawString(" π/4", 385, 115);
 		g.drawString(" π/6", 415, 155);
 		
