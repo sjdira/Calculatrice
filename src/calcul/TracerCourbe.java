@@ -64,7 +64,7 @@ public class TracerCourbe extends JFrame implements ActionListener{
 		bField=new JTextField();
 		bField.setBackground(new Color(32, 32, 32));
 		bField.setForeground(Color.white);
-		String[] s = {"x","x�","sin","cos","tan","asin","acos","atan","Ln","Exp"};
+		String[] s = {"x","x²","sin","cos","tan","asin","acos","atan","Ln","eˣ"};
 		fctField=new JComboBox<String>(s);
 		fctField.setBackground(new Color(32, 32, 32));
 		fctField.setForeground(Color.white);
@@ -143,7 +143,7 @@ public class TracerCourbe extends JFrame implements ActionListener{
 				bv=0.0;	
 			}
 			fct =(String) fctField.getSelectedItem();
-			if(fct.equals("x�"))
+			if(fct.equals("x²"))
 			this.courbeC.setFunction( (x) -> av*Math.pow(x, 2)+bv  );
 			if(fct.equals("x"))
 			this.courbeC.setFunction( (x) -> av*x+bv  );
@@ -164,10 +164,10 @@ public class TracerCourbe extends JFrame implements ActionListener{
 			if(fct.equals("atan"))
 			this.courbeC.setFunction( (x) -> av*Math.atan(x)+bv  );
 			this.setVisible( true );
-			if(fct.equals("ln"))
+			if(fct.equals("Ln"))
 			this.courbeC.setFunction( (x) -> av*Math.log(x)+bv  );
 			this.setVisible( true );
-			if(fct.equals("exp"))
+			if(fct.equals("eˣ"))
 			this.courbeC.setFunction( (x) -> av*Math.exp(x)+bv  );
 			this.setVisible( true );
 		}
