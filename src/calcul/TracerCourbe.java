@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -39,7 +40,8 @@ public class TracerCourbe extends JFrame implements ActionListener{
     	
         super( "Tracer Courbe" );
         this.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
-        
+		ImageIcon i = new ImageIcon("Images/courbe.jpg");
+		this.setIconImage(i.getImage());
         JPanel contentPane = (JPanel) this.getContentPane();
         p4 = new JPanel();
 		p4.setLayout(new FlowLayout());
