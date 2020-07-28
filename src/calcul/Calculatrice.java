@@ -28,8 +28,8 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 	private Button1 PN, sin, cos, tan, fact, ln, exp, puiss, sqrt, pi, a, c, rand, shift;
 	private Button2 EG, MUL, PLUS, MOINS, DIV;
 	private JButton AC, DEL, OFF;
-	private JPanel p1, p2, pStan, pSci;
-	private JRadioButton j1, j2;
+	private JPanel p1, p2, pStan, pSci , p3 ;
+	private JRadioButton j1, j2, j3;
 	private int click = 0;
 	private ButtonGroup g;
 	private double xp = 1, xs = 0, resultat = 0 , aux = 0;
@@ -61,8 +61,9 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 		
 		p2 = new JPanel();
 		p2.setBackground(Color.white);
-		p2.setPreferredSize(new Dimension(300,80));;
-		p2.setLayout(new GridLayout());
+		p2.setPreferredSize(new Dimension(300,80));
+		
+		
 		j1 = new JRadioButton("Standard");
 		j1.setOpaque(false);
 		j1.setSelected(true);
@@ -70,9 +71,13 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 		j2 = new JRadioButton("Scientifique");
 		j2.setOpaque(false);
 		
+		j3 = new JRadioButton("Graphique");
+		j3.setOpaque(false);
+		
 		g = new ButtonGroup();
 		g.add(j1);
 		g.add(j2);
+		g.add(j3);
 		
 		OFF= new JButton(new ImageIcon("Images/off.png"));
 		OFF.setHorizontalTextPosition(JButton.CENTER);
@@ -86,12 +91,14 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 		shift = new Button1("SHIFT");
 		shift.setPreferredSize(new Dimension(50,30));
 		shift.isMaximumSizeSet();
-		p2.add(j1); p2.add(j2); p2.add(OFF);
-		JPanel p3 = new JPanel();
+		
+		p2.add(j1); p2.add(j2);  p2.add(OFF); p2.add(j3);
+		
+		p3 = new JPanel();
 		p3.setLayout(new GridLayout(0,4,0,20));
 		p3.setBackground(Color.white);
 		p3.add(shift,BorderLayout.NORTH);
-		
+
 		p1.add(txt, BorderLayout.NORTH);
 		p1.add(p2, BorderLayout.CENTER);
 		p1.add(p3,BorderLayout.AFTER_LAST_LINE);
@@ -153,7 +160,9 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
         tan.addActionListener(this); fact.addActionListener(this); ln.addActionListener(this);
         exp.addActionListener(this); sqrt.addActionListener(this); a.addActionListener(this);
         c.addActionListener(this); pi.addActionListener(this); rand.addActionListener(this);
-        j1.addItemListener(this); j2.addItemListener(this); shift.addActionListener(this);
+        shift.addActionListener(this);
+        j1.addItemListener(this); j2.addItemListener(this); j3.addItemListener(this); 
+        
 		
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -412,7 +421,7 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 				sin.setText("sin");
 				cos.setText("cos");
 				tan.setText("tan");
-				ln.setText("ln");
+				ln.setText("ln(x)");
 				Shift = false;
 			}
 			else
@@ -583,7 +592,12 @@ public class Calculatrice extends JFrame implements ActionListener, ItemListener
 			pStan.setVisible(true);
 			pSci.setVisible(true);
 			shift.setVisible(true);
-		}	
+		}
+		
+		if(e.getSource() == j3)
+		{     
+			new TracerCourbe ();
+		}
 	}
 	
 	public static void main(String[] args) {

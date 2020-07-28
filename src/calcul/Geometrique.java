@@ -63,12 +63,5 @@ public class Geometrique extends JFrame {
 		g.drawString(" 7π/4", 380, 400);
 		g.drawString("  11π/6", 410, 355);
 	}
-	
-	
-
-	public static void main(String[] args) {	
-		new Geometrique(deg, degree);
-	}
-
 }
 
