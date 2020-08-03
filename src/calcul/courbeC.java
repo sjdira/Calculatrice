@@ -5,10 +5,10 @@ import java.awt.Graphics;
 
 import javax.swing.JComponent;
 
+@SuppressWarnings("serial")
 public class courbeC extends JComponent {
 	public float xMax = 10 ;
 	public float  yMax = 10 ;
-    private static final long serialVersionUID = 7800853645256601960L;
 
 	private CurveFunction function = (x) -> 0;
     

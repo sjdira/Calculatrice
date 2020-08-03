@@ -5,13 +5,11 @@ import java.awt.Graphics;
 
 import javax.swing.*;
 
-
 @SuppressWarnings("serial")
 public class Geometrique extends JFrame {
-    static int deg;
-    static double degree;
+    private int deg;
+    private double degree;
     
-	@SuppressWarnings("static-access")
 	public Geometrique(int deg, double degree)
 	{
 		super("Le cercle trigonométrique");
