@@ -25,7 +25,7 @@ public class TracerCourbe extends JFrame implements ActionListener{
     private  JPanel p4 ;
 	private JTextField aField,bField,xField,yField;
 	private JComboBox<String> fctField;
-	private JLabel aL,mul,pluss,b,x,y;
+	private JLabel aL,mul,pluss,x,y;
 	JButton tracer;
 	private float xmax,ymax;
     public TracerCourbe() {
@@ -42,10 +42,8 @@ public class TracerCourbe extends JFrame implements ActionListener{
 		p4.setBounds(0, 0, 900, 50);
 		p4.setPreferredSize(new Dimension(getWidth(),40));
 		
-		aL = new JLabel("f(x)      =       A");
+		aL = new JLabel("f(x)      =       ");
 		aL.setFont(new Font("TAHOMA", Font.BOLD, 14));
-		b = new JLabel("    B");
-		b.setFont(new Font("TAHOMA", Font.BOLD, 14));
 		pluss = new JLabel("     +");
 		mul =   new JLabel("    *");
 		mul.setFont(new Font("TAHOMA", Font.BOLD, 14));
@@ -70,15 +68,14 @@ public class TracerCourbe extends JFrame implements ActionListener{
 		yField.setBackground(Color.gray);
 		yField.setForeground(Color.white);
 		yField.setText("10");
-		aField.setText("1");
-		bField.setText("0");
+		aField.setText("A");
+		bField.setText("B");
 		x=new JLabel("    Max X");
 		y=new JLabel("    Max Y");
 		bField.setPreferredSize(new Dimension(60, 30));
 		aField.setPreferredSize(new Dimension(50, 30));
 		fctField.setPreferredSize(new Dimension(60, 30));
 		aL.setPreferredSize(new Dimension(100, 30));
-		b.setPreferredSize(new Dimension(30, 30));
 		pluss.setPreferredSize(new Dimension(50, 30));
 		mul.setPreferredSize(new Dimension(50, 30));
 		xField.setPreferredSize(new Dimension(60, 30));
@@ -93,7 +90,7 @@ public class TracerCourbe extends JFrame implements ActionListener{
 		tracer.setBorderPainted(false);
 		tracer.addActionListener(this);
 		
-		p4.add(aL); p4.add(aField); p4.add(mul); p4.add(fctField); p4.add(pluss); p4.add(b); p4.add(bField);
+		p4.add(aL); p4.add(aField); p4.add(mul); p4.add(fctField); p4.add(pluss); p4.add(bField);
 		p4.add(x); p4.add(xField); p4.add(y); p4.add(yField); p4.add(tracer);
 	
         contentPane.add( p4, BorderLayout.NORTH );
